@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 21:52:42 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/01/15 22:30:56 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/01/16 11:22:04 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@
 # include <unistd.h>
 
 int		get_next_line(int fd, char **line);
+void	add(int nb1, int nb2);
 
 #endif

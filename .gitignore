@@ -1,3 +1,4 @@
-main.c
+main*.c
+leak_check*.sh
 a.out
 *.o
