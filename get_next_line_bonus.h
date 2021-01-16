@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dda-silv <dda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/16 09:15:52 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/01/16 11:59:09 by dda-silv         ###   ########.fr       */
+/*   Created: 2021/01/15 21:52:42 by dda-silv          #+#    #+#             */
+/*   Updated: 2021/01/16 16:04:04 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-void	add(int nb1, int nb2)
-{
-	(void)nb1;
-	(void)nb2;
-}
+// To delete
+# include <stdio.h>
+# include <fcntl.h>
+
+// To keep
+# include <stdlib.h>
+# include <unistd.h>
+
+# define MAX_LINE 8192 
+
+int		get_next_line(int fd, char **line);
+int		is_fd_valid(int fd);
+
+#endif
