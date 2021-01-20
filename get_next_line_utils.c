@@ -6,11 +6,11 @@
 /*   By: dda-silv <dda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 09:15:52 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/01/20 18:22:18 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/01/20 17:44:36 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 int		is_fd_valid(int fd)
 {

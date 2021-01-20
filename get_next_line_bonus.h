@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 21:52:42 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/01/16 16:17:55 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/01/20 18:22:06 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define MAX_LINE 8192
+# define MAX_LINE 200000
 
 int		get_next_line(int fd, char **line);
 int		is_fd_valid(int fd);

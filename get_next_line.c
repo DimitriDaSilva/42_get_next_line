@@ -6,11 +6,11 @@
 /*   By: dda-silv <dda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 21:51:12 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/01/20 18:31:27 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/01/20 17:44:40 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 int	get_next_line(int fd, char **line)
 {
