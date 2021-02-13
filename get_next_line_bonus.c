@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 21:51:12 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/02/13 23:26:09 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/02/13 23:34:01 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	get_next_line(int fd, char **line)
 	t_buffer			*buffer;
 	int					i;
 
-	if (read(fd, 0, 0) == -1)
+	if (read(fd, 0, 0) == -1 || !line)
 		return (-1);
 	buffer = get_buffer(fd, &buffers);
 	*line = malloc(MAX_LINE);
