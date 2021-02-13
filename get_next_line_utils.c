@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 09:15:52 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/02/13 12:45:32 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/02/13 19:38:41 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,83 +46,6 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-
-t_tracker	*get_tracker(int fd, t_trackers *trackers)
-{
-	trackers->len = count_trackers(trackers->arr);
-	if (trackers->len == 0)
-	{
-		trackers->arr = malloc(2 * sizeof(t_tracker));
-		if (!trackers->arr)
-			return (0);
-		trackers->arr[0].fd = fd;
-		trackers->arr[0].buf = malloc(BUFFER_SIZE * sizeof(char));
-		if (!trackers->arr[0].buf)
-			return (0);
-		trackers->arr[1] = (t_tracker){ -1, 0 };
-		return (&trackers->arr[0]);
-	}
-	else if (is_fd_new(fd, trackers->arr))
-	{
-		trackers->arr = ft_realloc(trackers->arr,
-							(trackers->len + 1) * sizeof(t_tracker),
-							(trackers->len + 2) * sizeof(t_tracker));
-		if (!trackers->arr)
-			return (0);
-		trackers->arr[trackers->len + 1].fd = fd;
-		trackers->arr[trackers->len + 1].buf = malloc(BUFFER_SIZE * sizeof(char));
-		if (!trackers->arr[trackers->len + 1].buf)
-			return (0);
-		trackers->arr[trackers->len + 2] = (t_tracker){ -1, 0 };
-		return (&trackers->arr[trackers->len + 1]);
-	}
-	else
-		return (&trackers->arr[find_tracker(fd, trackers->arr)]);
-}
-
-int			count_trackers(t_tracker *arr)
-{
-	int	count;
-
-	count = 0;
-	if (!arr)
-		return (count);
-	while (arr[count].buf)
-		count++;
-	return (count);
-}
-
-int			is_fd_new(int fd, t_tracker *arr)
-{
-	int	check;
-	int	i;
-
-	check = 1;
-	i = -1;
-	while (arr[++i].buf)
-	{
-		if (arr[i].fd == fd)
-		{
-			check = 0;
-			break ;
-		}
-	}
-	return (check);
-}
-
-int			find_tracker(int fd, t_tracker *arr)
-{
-	int	i;
-
-	i = -1;
-	while (arr[++i].buf)
-	{
-		if (arr[i].fd == fd)
-			break ;
-	}
-	return (i);
-}
-
 char	*ft_strchr(const char *s, int c)
 {
 	while (*s)
@@ -134,4 +57,24 @@ char	*ft_strchr(const char *s, int c)
 	if (c == 0)
 		return ((char *)s);
 	return (0);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t count;
+
+	count = 0;
+	while (s[count] != '\0' && s[count] != EOF_CHAR)
+		count++;
+	return (count);
+}
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	unsigned char	*sav_s;
+
+	sav_s = s;
+	while (n--)
+		*sav_s++ = c;
+	return (s);
 }

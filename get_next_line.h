@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 08:33:26 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/02/13 12:44:43 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/02/13 20:33:53 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,29 @@
 # include <unistd.h>
 
 # define MAX_LINE 200000
+# define EOF_CHAR '\xbe'
 
-typedef struct	s_tracker
+typedef struct	s_buffer
 {
 	int			fd;
 	char		*buf;
-}				t_tracker;
+}				t_buffer;
 
-typedef struct	s_trackers
+typedef struct	s_buffers
 {
-	t_tracker	*arr;
+	t_buffer	*arr;
 	int			len;
-}				t_trackers;
+}				t_buffers;
 
 int			get_next_line(int fd, char **line);
+t_buffer	*get_buffer(int fd, t_buffers *buffers);
+int			find_buffer(int fd, t_buffer *arr);
+void		get_rest_line(char *dest, char *src, char end_of_line);
+
 void		*ft_realloc(void *ptr, size_t orig_size, size_t new_size);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
-t_tracker	*get_tracker(int fd, t_trackers *trackers);
-int			count_trackers(t_tracker *arr);
-int			is_fd_new(int fd, t_tracker *arr);
-int			find_tracker(int fd, t_tracker *arr);
-char	*ft_strchr(const char *s, int c);
+void		*ft_memcpy(void *dest, const void *src, size_t n);
+char		*ft_strchr(const char *s, int c);
+size_t		ft_strlen(const char *s);
+void		*ft_memset(void *s, int c, size_t n);
 
 #endif
