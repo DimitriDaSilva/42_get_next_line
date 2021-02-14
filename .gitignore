@@ -3,3 +3,4 @@ leak_check*.sh
 a.out
 *.o
 *.txt
+testing/
