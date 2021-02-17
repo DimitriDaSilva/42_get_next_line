@@ -6,7 +6,7 @@
 /*   By: dds <dda-silv@student.42lisboa.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 10:47:40 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/02/17 10:25:36 by dds              ###   ########.fr       */
+/*   Updated: 2021/02/17 11:31:37 by dds              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ typedef struct	s_buffers
 int				get_next_line(int fd, char **line);
 t_buffer		*get_buffer(int fd, t_buffers *buffers);
 int				find_buffer(int fd, t_buffers *buffers);
-int				get_rest_line(char *dest, t_buffer *buffer, t_buffers *buffers);
-void			free_buffers(t_buffers *buffers, t_buffer *buffer);
+int				get_rest_line(char **line,
+							int pos_line,
+							t_buffer *buffer,
+							t_buffers *buffers);
+void			free_buffers(t_buffers *buffers, t_buffer *buffer, char **line);
 
 /*
 ** utils

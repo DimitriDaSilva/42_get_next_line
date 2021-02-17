@@ -6,7 +6,7 @@
 /*   By: dds <dda-silv@student.42lisboa.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 21:51:12 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/02/17 10:17:49 by dds              ###   ########.fr       */
+/*   Updated: 2021/02/17 11:48:01 by dds              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ int			get_next_line(int fd, char **line)
 	while (*buffer->buf != 0 || read(fd, buffer->buf, BUFFER_SIZE))
 	{
 		if (ft_strchr(buffer->buf, '\n') || ft_strchr(buffer->buf, EOF_CHAR))
-			return (get_rest_line(*(line) + i, buffer, &buffers));
+			return (get_rest_line(line, i, buffer, &buffers));
 		ft_memcpy(&(*line)[i], buffer->buf, ft_strlen(buffer->buf));
 		i += ft_strlen(buffer->buf);
 		ft_memset(buffer->buf, 0, BUFFER_SIZE + 1);
 	}
-	free_buffers(&buffers, buffer);
+	free_buffers(&buffers, buffer, line);
 	return (0);
 }
 
@@ -138,13 +138,17 @@ int			find_buffer(int fd, t_buffers *buffers)
 **			in the buf somewhere. We want its position
 ** @13		The size of the string to copy is between begin and where line
 **			feed or EOF has been found
-** @16-17	If the character after line feed or EOF is a NULL-terminator, we
+** @15-16	If the character after line feed or EOF is a NULL-terminator, we
 **			need to clean the buffer
-** @18-19	Else we move the buffer for right to the left
-** @20-21	If EOF is reached we can free_buffers. At least free(buffer->buf)
+** @17-18	Else we move the buffer for right to the left
+** @19-20	If EOF is reached we can free_buffers. At least free(buffer->buf)
+** @21-22	Freeing the excess of space if a new line is found
 */
 
-int			get_rest_line(char *line, t_buffer *buffer, t_buffers *buffers)
+int			get_rest_line(char **line,
+							int pos_line,
+							t_buffer *buffer,
+							t_buffers *buffers)
 {
 	char	*ptr_eol;
 	int		rest_size;
@@ -159,14 +163,15 @@ int			get_rest_line(char *line, t_buffer *buffer, t_buffers *buffers)
 	else
 		ret = 1;
 	rest_size = ptr_eol - buffer->buf;
-	ft_memcpy(line, buffer->buf, rest_size);
-	line[rest_size] = 0;
+	ft_memcpy(*(line) + pos_line, buffer->buf, rest_size);
 	if (*(ptr_eol + 1) == 0)
 		ft_memset(buffer->buf, 0, BUFFER_SIZE + 1);
 	else
 		ft_memcpy(buffer->buf, ptr_eol + 1, BUFFER_SIZE - rest_size);
 	if (ret == 0)
-		free_buffers(buffers, buffer);
+		free_buffers(buffers, buffer, line);
+	else
+		*line = ft_realloc(*line, MAX_LINE, ft_strlen(*line) + 1);
 	return (ret);
 }
 
@@ -176,9 +181,10 @@ int			get_rest_line(char *line, t_buffer *buffer, t_buffers *buffers)
 **			- [t_buffer *] current buffer
 ** Line-by-line comments:
 ** @8-12	If no fd other than -1 is found then no buffer active is left
+** @22		Freeing the excess of space
 */
 
-void		free_buffers(t_buffers *buffers, t_buffer *buffer)
+void		free_buffers(t_buffers *buffers, t_buffer *buffer, char **line)
 {
 	int	was_last_buffer;
 	int	i;
@@ -201,4 +207,5 @@ void		free_buffers(t_buffers *buffers, t_buffer *buffer)
 		buffers->arr = 0;
 		buffers->len = 0;
 	}
+	*line = ft_realloc(*line, MAX_LINE, ft_strlen(*line) + 1);
 }

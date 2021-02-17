@@ -6,7 +6,7 @@
 /*   By: dds <dda-silv@student.42lisboa.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 08:57:21 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/02/17 09:03:08 by dds              ###   ########.fr       */
+/*   Updated: 2021/02/17 11:25:17 by dds              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@ void	*ft_realloc(void *ptr, size_t orig_size, size_t new_size)
 			return (0);
 	}
 	else if (new_size <= orig_size)
-		return (ptr);
+	{
+		if (!(new_ptr = malloc(new_size)))
+			return (0);
+		ft_memcpy(new_ptr, ptr, new_size);
+		free(ptr);
+	}
 	else if (ptr && new_size > orig_size)
 	{
 		if (!(new_ptr = malloc(new_size)))

@@ -6,7 +6,7 @@
 /*   By: dds <dda-silv@student.42lisboa.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 08:57:21 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/02/14 11:49:44 by dds              ###   ########.fr       */
+/*   Updated: 2021/02/17 11:39:36 by dds              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@ void	*ft_realloc(void *ptr, size_t orig_size, size_t new_size)
 			return (0);
 	}
 	else if (new_size <= orig_size)
-		return (ptr);
+	{
+		if (!(new_ptr = malloc(new_size)))
+			return (0);
+		ft_memcpy(new_ptr, ptr, new_size);
+		free(ptr);
+	}
 	else if (ptr && new_size > orig_size)
 	{
 		if (!(new_ptr = malloc(new_size)))
@@ -50,11 +55,11 @@ char	*ft_strchr(const char *s, int c)
 {
 	while (*s)
 	{
-		if (*s == c)
+		if (*s == (unsigned char)c)
 			return ((char *)s);
 		s++;
 	}
-	if (c == 0)
+	if ((unsigned char)c == 0)
 		return ((char *)s);
 	return (0);
 }
@@ -70,6 +75,8 @@ size_t	ft_strlen(const char *s)
 	size_t count;
 
 	count = 0;
+	if (!s)
+		return (0);
 	while (s[count] != '\0' && s[count] != EOF_CHAR)
 		count++;
 	return (count);
