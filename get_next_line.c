@@ -6,7 +6,7 @@
 /*   By: dds <dda-silv@student.42lisboa.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 21:51:12 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/02/14 11:48:44 by dds              ###   ########.fr       */
+/*   Updated: 2021/02/17 10:17:49 by dds              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ int			get_next_line(int fd, char **line)
 			return (get_rest_line(*(line) + i, buffer, &buffers));
 		ft_memcpy(&(*line)[i], buffer->buf, ft_strlen(buffer->buf));
 		i += ft_strlen(buffer->buf);
-		ft_memset(buffer->buf, 0, BUFFER_SIZE);
+		ft_memset(buffer->buf, 0, BUFFER_SIZE + 1);
 	}
+	free_buffers(&buffers, buffer);
 	return (0);
 }
 
@@ -183,8 +184,11 @@ void		free_buffers(t_buffers *buffers, t_buffer *buffer)
 	int	i;
 
 	was_last_buffer = 1;
-	free(buffer->buf);
-	buffer->fd = -1;
+	if (buffer->fd != -1)
+	{
+		free(buffer->buf);
+		buffer->fd = -1;
+	}
 	i = -1;
 	while (++i < buffers->len)
 	{
@@ -192,5 +196,9 @@ void		free_buffers(t_buffers *buffers, t_buffer *buffer)
 			was_last_buffer = 0;
 	}
 	if (was_last_buffer)
+	{
 		free(buffers->arr);
+		buffers->arr = 0;
+		buffers->len = 0;
+	}
 }

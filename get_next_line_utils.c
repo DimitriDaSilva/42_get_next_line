@@ -6,7 +6,7 @@
 /*   By: dds <dda-silv@student.42lisboa.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 08:57:21 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/02/14 11:47:52 by dds              ###   ########.fr       */
+/*   Updated: 2021/02/17 09:03:08 by dds              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ char	*ft_strchr(const char *s, int c)
 {
 	while (*s)
 	{
-		if (*s == c)
+		if (*s == (unsigned char)c)
 			return ((char *)s);
 		s++;
 	}
-	if (c == 0)
+	if ((unsigned char)c == 0)
 		return ((char *)s);
 	return (0);
 }
@@ -70,6 +70,8 @@ size_t	ft_strlen(const char *s)
 	size_t count;
 
 	count = 0;
+	if (!s)
+		return (0);
 	while (s[count] != '\0' && s[count] != EOF_CHAR)
 		count++;
 	return (count);
